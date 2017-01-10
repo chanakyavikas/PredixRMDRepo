@@ -1,0 +1,27 @@
+---
+applications:
+  - name: {your-name}-dataingestion
+    buildpack: java_buildpack
+    path: target/dataingestion-service-2.0.8.jar
+    memory: 500MB
+    services:
+      - {assetService}
+      - {timeSeriesService}
+      - {uaaService}
+env:
+    # NOTE: Some values in curly braces are updated by scripts	
+    SPRING_PROFILES_ACTIVE : cloud
+    predix_uaa_name: {uaaService}
+    predix_asset_name: {assetService}
+    predix_timeseries_name: {timeSeriesService}
+    predix_oauth_clientId : {clientId}:{secret}
+    predix_timeseries_wspool_maxIdle : 5
+    predix_timeseries_wspool_maxActive : 5
+    #also send data to our own websocket server which is used by ref-app UI
+    predix_wsserver_websocket_uri: wss://{WEB_SOCKET_SERVER_HOST}/livestream/messages
+    predix_wsserver_wspool_maxIdle : 5
+    predix_wsserver_wspool_maxActive : 5
+    #logging - see application-cloud.properties
+    logging_level_root: INFO
+    logging_level_org_springframework: INFO
+    logging_level_com_ge_predix_solsvc: DEBUG

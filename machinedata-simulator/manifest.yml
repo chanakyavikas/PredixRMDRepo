@@ -1,0 +1,15 @@
+---
+applications:
+  - name: {your-name}-machinedata-simulator
+    buildpack: java_buildpack
+    path: target/machinedata-simulator-4.0.6.jar
+    memory: 150MB
+    timeout: 120
+env:
+    machineControllerId: 1
+    predix_dataingestion_service_uri: ${dataIngestionUrl}/saveTimeSeriesData
+    #logging - see application-cloud.properties
+    logging_level_root: INFO
+    logging_level_org_springframework: INFO
+    logging_level_com_ge_predix_solsvc: DEBUG
+    
